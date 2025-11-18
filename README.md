@@ -107,15 +107,15 @@ All projects can be deployed on:
 ```
 Codveda-Internship-Project(Basic)/
 │
-├── task1-landing-page/
+├── Responsive Landing Page
 │   ├── index.html
 │   └── README.md
 │
-├── task2-interactive-form/
+├── Interactive Form
 │   ├── index.html
 │   └── README.md
 │
-├── task3-counter-app/
+├── Basic DOM Manipulation
 │   ├── index.html
 │   └── README.md
 │
