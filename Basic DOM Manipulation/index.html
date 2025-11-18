@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive counter application demonstrating DOM manipulation">
+    <title>Counter App - DOM Manipulation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --white: #ffffff;
+            --shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .container {
+            background: var(--white);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            padding: 3rem 2rem;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: slideIn 0.6s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .app-header {
+            margin-bottom: 2rem;
+        }
+
+        .app-header h1 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .app-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .counter-display {
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .counter-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .counter-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .counter-value {
+            font-size: 6rem;
+            font-weight: bold;
+            color: var(--white);
+            line-height: 1;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        .counter-value.animate-up {
+            animation: bounceUp 0.4s ease;
+        }
+
+        .counter-value.animate-down {
+            animation: bounceDown 0.4s ease;
+        }
+
+        @keyframes bounceUp {
+            0% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(1.2) translateY(-10px);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes bounceDown {
+            0% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(0.8) translateY(10px);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .counter-status {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-decrement {
+            background: var(--danger-color);
+            color: var(--white);
+        }
+
+        .btn-decrement:hover:not(:disabled) {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-increment {
+            background: var(--success-color);
+            color: var(--white);
+        }
+
+        .btn-increment:hover:not(:disabled) {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-reset {
+            background: var(--primary-color);
+            color: var(--white);
+            width: 100%;
+        }
+
+        .btn-reset:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .controls-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #f3f4f6;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .step-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-btn {
+            padding: 0.6rem 1rem;
+            background: #f3f4f6;
+            color: var(--text-dark);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: auto;
+            flex: 0;
+        }
+
+        .step-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid #f3f4f6;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .counter-value {
+                font-size: 4rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .app-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>🔢 Counter Application</h1>
+            <p>Simple DOM manipulation with vanilla JavaScript</p>
+        </header>
+
+        <main>
+            <!-- Counter Display -->
+            <div class="counter-display">
+                <div class="counter-label">Current Count</div>
+                <div class="counter-value" id="counterValue">0</div>
+                <div class="counter-status" id="counterStatus">Ready to count!</div>
+            </div>
+
+            <!-- Main Controls -->
+            <div class="button-group">
+                <button class="btn-decrement" id="decrementBtn" aria-label="Decrease counter">
+                    <span>➖ Decrease</span>
+                </button>
+                <button class="btn-increment" id="incrementBtn" aria-label="Increase counter">
+                    <span>➕ Increase</span>
+                </button>
+            </div>
+
+            <button class="btn-reset" id="resetBtn" aria-label="Reset counter">
+                🔄 Reset Counter
+            </button>
+
+            <!-- Advanced Controls -->
+            <section class="controls-section">
+                <label class="control-label">Step Size</label>
+                <div class="step-controls">
+                    <button class="step-btn active" data-step="1">1</button>
+                    <button class="step-btn" data-step="5">5</button>
+                    <button class="step-btn" data-step="10">10</button>
+                    <button class="step-btn" data-step="50">50</button>
+                    <button class="step-btn" data-step="100">100</button>
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalClicks">0</div>
+                        <div class="stat-label">Total Clicks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="maxValue">0</div>
+                        <div class="stat-label">Max Value</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="minValue">0</div>
+                        <div class="stat-label">Min Value</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // DOM Elements
+        const counterValue = document.getElementById('counterValue');
+        const counterStatus = document.getElementById('counterStatus');
+        const decrementBtn = document.getElementById('decrementBtn');
+        const incrementBtn = document.getElementById('incrementBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const stepButtons = document.querySelectorAll('.step-btn');
+        const totalClicksEl = document.getElementById('totalClicks');
+        const maxValueEl = document.getElementById('maxValue');
+        const minValueEl = document.getElementById('minValue');
+
+        // Counter state
+        let count = 0;
+        let step = 1;
+        let totalClicks = 0;
+        let maxValue = 0;
+        let minValue = 0;
+
+        // Update counter display
+        function updateDisplay() {
+            counterValue.textContent = count;
+            updateStatus();
+            updateStats();
+            checkButtonStates();
+        }
+
+        // Update status message
+        function updateStatus() {
+            if (count === 0) {
+                counterStatus.textContent = 'At starting point';
+            } else if (count > 0) {
+                counterStatus.textContent = `Counting up by ${step}`;
+            } else {
+                counterStatus.textContent = `Minimum reached (0)`;
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            totalClicksEl.textContent = totalClicks;
+            
+            if (count > maxValue) {
+                maxValue = count;
+                maxValueEl.textContent = maxValue;
+                maxValueEl.parentElement.style.animation = 'none';
+                setTimeout(() => {
+                    maxValueEl.parentElement.style.animation = 'bounceUp 0.5s ease';
+                }, 10);
+            }
+            
+            if (count < minValue) {
+                minValue = count;
+                minValueEl.textContent = minValue;
+            }
+        }
+
+        // Check button states
+        function checkButtonStates() {
+            // Disable decrement button when count is 0
+            if (count <= 0) {
+                decrementBtn.disabled = true;
+                count = 0; // Ensure count doesn't go below 0
+            } else {
+                decrementBtn.disabled = false;
+            }
+        }
+
+        // Add animation class
+        function animateCounter(direction) {
+            counterValue.classList.remove('animate-up', 'animate-down');
+            void counterValue.offsetWidth; // Trigger reflow
+            counterValue.classList.add(direction === 'up' ? 'animate-up' : 'animate-down');
+        }
+
+        // Increment counter
+        function increment() {
+            count += step;
+            totalClicks++;
+            animateCounter('up');
+            updateDisplay();
+        }
+
+        // Decrement counter
+        function decrement() {
+            if (count > 0) {
+                count = Math.max(0, count - step);
+                totalClicks++;
+                animateCounter('down');
+                updateDisplay();
+            }
+        }
+
+        // Reset counter
+        function reset() {
+            count = 0;
+            totalClicks = 0;
+            maxValue = 0;
+            minValue = 0;
+            counterValue.classList.remove('animate-up', 'animate-down');
+            updateDisplay();
+            
+            // Visual feedback
+            counterValue.style.animation = 'none';
+            setTimeout(() => {
+                counterValue.style.animation = 'bounceUp 0.5s ease';
+            }, 10);
+        }
+
+        // Set step size
+        function setStep(newStep) {
+            step = parseInt(newStep);
+            
+            // Update active button
+            stepButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.dataset.step) === step) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            updateStatus();
+        }
+
+        // Event Listeners
+        incrementBtn.addEventListener('click', increment);
+        decrementBtn.addEventListener('click', decrement);
+        resetBtn.addEventListener('click', reset);
+
+        stepButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setStep(btn.dataset.step);
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                case '+':
+                    e.preventDefault();
+                    increment();
+                    break;
+                case 'ArrowDown':
+                case '-':
+                    e.preventDefault();
+                    if (count > 0) decrement();
+                    break;
+                case 'r':
+                case 'R':
+                    e.preventDefault();
+                    reset();
+                    break;
+            }
+        });
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>
