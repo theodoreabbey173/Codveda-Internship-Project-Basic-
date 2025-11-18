@@ -45,11 +45,11 @@ A comprehensive registration form with real-time validation and dynamic error me
 - Mobile-responsive design
 
 **Technologies:** HTML5, CSS3, JavaScript  
-**[View Project →](./task2-interactive-form/)**
+**[View Project →](./Interactive%20Form/)**
 
 ---
 
-### 3. 🔢 Counter Application
+### 3. 🔢 Basic DOM Manipulation - Counter Application
 An interactive counter app demonstrating DOM manipulation and event handling.
 
 **Features:**
@@ -61,7 +61,7 @@ An interactive counter app demonstrating DOM manipulation and event handling.
 - Smooth animations
 
 **Technologies:** HTML5, CSS3, JavaScript  
-**[View Project →](./task3-counter-app/)**
+**[View Project →](./Basic%20DOM%20Manipulation/)**
 
 ---
 
