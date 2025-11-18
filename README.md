@@ -91,7 +91,7 @@ An interactive counter app demonstrating DOM manipulation and event handling.
 ### Running the Projects
 1. Clone this repository
    ```bash
-   git clone https://github.com/[your-username]/codveda-internship-projects.git
+   git clone https://github.com/theodoreabbey173/Codveda-Internship-Project-Basic-.git
    ```
 2. Navigate to any project folder
 3. Open the `index.html` file in your browser
@@ -105,7 +105,7 @@ All projects can be deployed on:
 
 ## 📊 Project Structure
 ```
-codveda-internship-projects/
+Codveda-Internship-Project(Basic)/
 │
 ├── task1-landing-page/
 │   ├── index.html
@@ -176,10 +176,9 @@ Potential improvements for these projects:
 
 ## 🔗 Connect With Me
 
-- **LinkedIn**: [Your LinkedIn Profile]
-- **Portfolio**: [Your Portfolio Website]
-- **Email**: [Your Email]
-- **GitHub**: [@your-username](https://github.com/your-username)
+- **LinkedIn**: Theodore Abbey
+- **Email**: theodoreabbey174@gmail.com
+- **GitHub**: [@theodoreabbey173](https://github.com/theodoreabbey173)
 
 ## 🏢 About Codveda Technology
 
