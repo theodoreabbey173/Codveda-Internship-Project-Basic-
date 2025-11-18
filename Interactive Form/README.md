@@ -115,7 +115,7 @@ The form includes:
 - Submit button with disabled state until valid
 
 ## 🔗 Live Demo
-[Add your live demo link here if deployed]
+[Will be out soon.]
 
 ## 👨‍💻 Author
 Theodore Gyaqueh Abbey
