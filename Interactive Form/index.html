@@ -361,7 +361,7 @@
                         type="tel" 
                         id="phone" 
                         name="phone" 
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="+233 24 123 4567"
                         autocomplete="tel"
                     >
                     <span class="validation-icon">✓</span>
@@ -380,7 +380,7 @@
                         placeholder="Create a strong password"
                         autocomplete="new-password"
                     >
-                    <span class="password-toggle" id="togglePassword">👁️</span>
+                    <span class="password-toggle" id="togglePassword">🔒</span>
                     <span class="validation-icon">✓</span>
                 </div>
                 <div class="error-message"></div>
@@ -403,7 +403,7 @@
                         placeholder="Re-enter your password"
                         autocomplete="new-password"
                     >
-                    <span class="password-toggle" id="toggleConfirmPassword">👁️</span>
+                    <span class="password-toggle" id="toggleConfirmPassword">🔒</span>
                     <span class="validation-icon">✓</span>
                 </div>
                 <div class="error-message"></div>
@@ -558,13 +558,13 @@
         document.getElementById('togglePassword').addEventListener('click', function() {
             const type = password.type === 'password' ? 'text' : 'password';
             password.type = type;
-            this.textContent = type === 'password' ? '👁️' : '🙈';
+            this.textContent = type === 'password' ? '🔒 ' : ' 🔓';
         });
 
         document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
             const type = confirmPassword.type === 'password' ? 'text' : 'password';
             confirmPassword.type = type;
-            this.textContent = type === 'password' ? '👁️' : '🙈';
+            this.textContent = type === 'password' ? '🔒' : '🔓';
         });
 
         // Form submission
