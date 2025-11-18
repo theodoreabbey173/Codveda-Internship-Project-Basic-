@@ -29,7 +29,7 @@ A modern, fully responsive landing page built with semantic HTML, CSS Grid/Flexb
 - Modern gradient design
 
 **Technologies:** HTML5, CSS3, JavaScript  
-**[View Project →](./Responsive%20Landing%20Page/)**
+**[View Project →](./task1-landing-page/)**
 
 ---
 
