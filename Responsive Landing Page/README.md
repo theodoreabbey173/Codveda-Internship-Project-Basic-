@@ -87,7 +87,7 @@ This project demonstrates proficiency in:
 - Professional footer with multiple sections
 
 ## 🔗 Live Demo
-[Add your live demo link here if deployed]
+Will be out soon
 
 ## 👨‍💻 Author
 Theodore Gyaqueh Abbey
